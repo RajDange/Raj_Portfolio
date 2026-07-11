@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Raj Dange | Data Engineer & Data Architect",
   description:
     "Data Engineer and Data Architect building scalable data platforms on Azure, Microsoft Fabric, and Databricks.",
+    icons: {
+    icon: "/images/Logo_Image.png", // update this path to match your actual filename
+  },
 };
 
 export default function RootLayout({
