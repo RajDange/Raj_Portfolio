@@ -22,17 +22,20 @@ export default function Hero() {
         </p>
         <div className="flex flex-wrap gap-3">
           <a
-            href="#projects"
+            href="/RAJ_NETAJI_DANGE_Resume.pdf"
+            target="_blank"
             className="rounded-md bg-accent-blue px-4 py-2 text-xs font-medium text-bg"
-          >
-            View projects
-          </a>
-          <a
-            href="/resume.pdf"
-            className="rounded-md border border-border px-4 py-2 text-xs text-text-secondary hover:border-borderStrong"
           >
             Resume
           </a>
+          <a
+            href="#projects"
+            className="rounded-md border border-border px-4 py-2 text-xs text-text-secondary hover:border-borderStrong"
+            
+          >
+            View projects
+          </a>
+          
           <a
             href="https://github.com/RajDange"
             target="_blank"
