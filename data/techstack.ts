@@ -9,6 +9,12 @@ import {
   SiSnowflake,
   SiPowerbi,
   SiMicrosoftazure,
+  SiMysql,
+  SiTableau,
+  SiGithubactions,
+  SiMicrosoftsqlserver,
+  SiCloudways,
+  SiMicrosoftvisio,
 } from "react-icons/si";
 import { TbDatabase, TbBrandAzure, TbStack2, TbCloudDataConnection } from "react-icons/tb";
 import type { IconType } from "react-icons";
@@ -27,6 +33,7 @@ export const techStack: TechCategory[] = [
       { name: "Azure Data Factory", icon: TbBrandAzure },
       { name: "Snowflake", icon: SiSnowflake },
       { name: "Azure Data Lake", icon: SiMicrosoftazure },
+      { name: "SSMS", icon: SiMicrosoftsqlserver },
     ],
   },
   {
@@ -42,11 +49,14 @@ export const techStack: TechCategory[] = [
     items: [
       { name: "Python", icon: SiPython },
       { name: "PySpark", icon: SiApachespark },
+      { name: "SQL", icon: SiMysql },
     ],
   },
   {
     label: "Analytics & BI",
-    items: [{ name: "Power BI", icon: SiPowerbi }],
+    items: [{ name: "Power BI", icon: SiPowerbi },
+      { name: "Incorta", icon: SiTableau }
+    ],
   },
   {
     label: "DevOps",
@@ -55,6 +65,14 @@ export const techStack: TechCategory[] = [
       { name: "Airflow", icon: SiApacheairflow },
       { name: "Docker", icon: SiDocker },
       { name: "Kubernetes", icon: SiKubernetes },
+      { name: "CI/CD", icon: SiGithubactions },
+    ],
+  },
+  {
+    label: "Legacy & other tools",
+    items: [
+      { name: "Gateway", icon: SiCloudways },
+      { name: "Visio", icon: SiMicrosoftvisio },
     ],
   },
 ];

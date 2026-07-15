@@ -21,17 +21,17 @@ export const projects: Project[] = [
     summary:
       "Led ERP data migration across Austria, Switzerland, the Netherlands, and North America into Oracle Fusion.",
     status: "shipped",
-    thumbnail: "/images/projects/lakehouse-thumb.png", // TODO: replace with real screenshot
+    thumbnail: "/images/projects/Multi-country ERP data migration.png", // TODO: replace with real screenshot
     stack: ["Azure Data Factory", "Informatica IDMC", "PySpark", "SQL", "Power BI"],
     metric: "40% improvement in processing efficiency",
     sections: [
       {
         heading: "Business problem",
-        body: "TODO — replace with the real business driver for this migration (e.g. what system was being replaced, why, and what would have broken if it wasn't done).",
+        body: "Business was modernizing its ERP system and needed to migrate historical data from multiple legacy systems into Oracle Fusion, while ensuring data quality, compliance, and minimal downtime.",
       },
       {
         heading: "Functional requirements",
-        body: "TODO — what the pipeline had to do end to end (source systems, transformations, target loads, reconciliation).",
+        body: "Legacy ERP systems are not suitable for modern growth and analytics. The migration needed to ensure data integrity, support multiple countries' data, and provide a framework for future migrations.",
       },
       {
         heading: "Non-functional requirements",
@@ -47,7 +47,7 @@ export const projects: Project[] = [
       },
       {
         heading: "Technology stack",
-        body: "Azure Data Factory, Informatica IDMC (CAI, CDI, CDQ), PySpark, SQL, Power BI.",
+        body: "Azure Data Factory, Informatica IDMC (CAI, CDI, CDQ), PySpark, SQL, SSMS, Power BI.",
       },
       {
         heading: "Data flow",
