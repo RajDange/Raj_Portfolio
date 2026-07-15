@@ -7,21 +7,21 @@ export type Certification = {
 
 export const certifications: Certification[] = [
   {
-    name: "Databricks Fundamentals Accreditation",
+    name: "Databricks Engineer Associate",
     issuer: "Databricks",
-    badgeImage: "/images/certs/databricks-fundamentals.png",
+    badgeImage: "/images/certs/Databricks Engineer Associate.png",
     verifyUrl: "",
   },
   {
-    name: "Cloud Data Integration for Developers R42",
-    issuer: "Informatica",
-    badgeImage: "/images/certs/informatica-cdi.png",
+    name: "Microsoft Certified: Fabric Data Engineer",
+    issuer: "Fabric",
+    badgeImage: "/images/certs/DP700.png",
     verifyUrl: "",
   },
   {
-    name: "Cloud Application Integration Services for Developers R41",
-    issuer: "Informatica",
-    badgeImage: "/images/certs/informatica-cai.png",
+    name: "Databricks Machine Learning Professional",
+    issuer: "Databricks",
+    badgeImage: "/images/certs/Professional-badge-ML.png",
     verifyUrl: "",
   },
   {
@@ -37,9 +37,9 @@ export const certifications: Certification[] = [
     verifyUrl: "",
   },
   {
-    name: "Azure Fundamentals of Machine Learning",
-    issuer: "Microsoft",
-    badgeImage: "/images/certs/azure-ml-fundamentals.png",
+    name: "Snowflake SnowPro Core Certification",
+    issuer: "Snowflake",
+    badgeImage: "/images/certs/GDS Snowpro_associate.png",
     verifyUrl: "",
   },
 ];

@@ -155,7 +155,7 @@ export const projects: Project[] = [
     summary:
       "In-progress: enterprise data migration and archival framework as part of a large-scale ERP modernization program.",
     status: "in-progress",
-    thumbnail: "/images/projects/fabric-modernization-thumb.jpg", // TODO: replace with real screenshot
+    thumbnail: "/images/projects/fabric-modernization-thumb.png", // TODO: replace with real screenshot
     stack: ["Microsoft Fabric", "On-Premises Data Gateway", "PySpark", "SQL Server", "JIVS"],
     sections: [
       {

@@ -6,10 +6,10 @@ export default function Hero() {
       <div className="max-w-md">
         <div className="mb-4 flex flex-wrap gap-2">
           <span className="rounded border border-[#1D4E78] px-2 py-1 font-mono text-[10px] text-accent-blue">
-            data engineer
+            Data Engineer
           </span>
           <span className="rounded border border-[#1F5C43] px-2 py-1 font-mono text-[10px] text-accent-teal">
-            data architect
+            Data Architect
           </span>
         </div>
         <h1 className="mb-4 text-4xl font-medium leading-tight text-text-primary sm:text-5xl">
@@ -69,7 +69,7 @@ export default function Hero() {
         <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
           <span className="font-mono text-[10px] text-text-secondary">
-            Pune, India
+            Banglore, India
           </span>
         </div>
       </div>
