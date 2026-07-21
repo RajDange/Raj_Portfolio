@@ -60,7 +60,7 @@ export default function Hero() {
           {
             /*TODO: place your photo at /public/images/profile.jpg
             and swap the placeholder div below for:*/
-            <Image src="/images/Raj_Profile picture.png" alt="Raj Dange" fill className="object-cover" />
+            <Image src="/images/Raj_Profile picture.jpg" alt="Raj Dange" fill className="object-cover" />
           }
           <div className="flex h-full w-full items-center justify-center font-mono text-xs text-text-muted">
             your photo
