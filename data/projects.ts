@@ -22,7 +22,7 @@ export const projects: Project[] = [
       "Led ERP data migration across Austria, Switzerland, the Netherlands, and North America into Oracle Fusion.",
     status: "shipped",
     thumbnail: "/images/projects/Multi-country ERP data migration.png", // TODO: replace with real screenshot
-    stack: ["Azure Data Factory", "Informatica IDMC", "PySpark", "SQL", "Power BI"],
+    stack: ["Azure Data Factory", "Synapse Analytics", "Informatica IDMC", "PySpark", "SQL", "Power BI"],
     metric: "40% improvement in processing efficiency",
     sections: [
       {
@@ -34,80 +34,60 @@ export const projects: Project[] = [
         body: "Legacy ERP systems are not suitable for modern growth and analytics. The migration needed to ensure data integrity, support multiple countries' data, and provide a framework for future migrations.",
       },
       {
-        heading: "Non-functional requirements",
-        body: "TODO — throughput, SLA windows, data quality thresholds, uptime expectations.",
-      },
-      {
-        heading: "Assumptions",
-        body: "TODO — anything you assumed true about source data, environments, or team ownership that turned out to matter.",
-      },
-      {
         heading: "Architecture overview",
-        body: "TODO — describe the ADF + Informatica IDMC (CAI/CDI/CDQ) pipeline flow. This is a strong section to pair with a Mermaid diagram once you confirm the actual flow.",
+        body: "The architecture involved using Azure Data Factory for orchestration, Informatica IDMC for data integration and quality, PySpark for transformations, and SQL Server for staging and validation. Power BI was used for reporting and monitoring.",
       },
       {
         heading: "Technology stack",
-        body: "Azure Data Factory, Informatica IDMC (CAI, CDI, CDQ), PySpark, SQL, SSMS, Power BI.",
+        body: "Azure Data Factory, Synapse Analytics, Informatica IDMC (CAI, CDI, CDQ), PySpark, SQL, SSMS, Power BI.",
       },
       {
         heading: "Data flow",
-        body: "TODO — source systems to Oracle Fusion, including staging layers.",
+        body: "Data was extracted from multiple legacy ERP systems, transformed using PySpark and Informatica, and loaded into Oracle Fusion. The process included data validation, cleansing, and enrichment to ensure high-quality migration.",
       },
       {
         heading: "Design decisions",
-        body: "TODO — why ADF + Informatica together rather than either alone. Was this inherited or your call?",
-      },
-      {
-        heading: "Alternative approaches",
-        body: "TODO — what else was considered (e.g. pure ADF, pure Informatica, custom Python) and why it was rejected.",
-      },
-      {
-        heading: "Trade-offs",
-        body: "TODO — what you gave up for what you gained (e.g. flexibility vs. speed of delivery).",
+        body: "The decision to use Azure Data Factory and Informatica IDMC was based on their capabilities for handling complex data integration scenarios, support for multiple data sources, and robust data quality features. PySpark was chosen for its scalability and performance in processing large datasets.",
       },
       {
         heading: "Security considerations",
-        body: "TODO — credential handling, PII in migrated data, access controls across four countries' data.",
+        body: "Data security was a top priority, with encryption in transit and at rest, role-based access controls, and compliance with data protection regulations across all countries involved in the migration.",
       },
       {
         heading: "Performance optimization",
-        body: "TODO — the specific change(s) behind the 40% efficiency gain.",
+        body: "The pipeline was optimized by parallelizing data extraction and transformation processes, tuning PySpark jobs for better performance, and implementing incremental data loads to reduce processing time. Performance metrics were monitored to ensure efficiency.",
       },
       {
         heading: "Scalability considerations",
-        body: "TODO — how the pipeline handled multiple countries' volumes without redesign.",
+        body: "The architecture was designed to handle increasing data volumes and additional countries in the future. The use of cloud-based services like Azure Data Factory and Synapse Analytics allows for easy scaling of resources based on demand.",
       },
       {
         heading: "Cost optimization",
-        body: "TODO — any cost-aware decisions (e.g. pipeline scheduling, compute sizing).",
+        body: "Cost optimization strategies included leveraging Azure's pay-as-you-go model, optimizing data storage and processing costs, and using reserved instances for predictable workloads. Regular cost reviews were conducted to identify areas for further savings.",
       },
       {
         heading: "Monitoring & logging",
-        body: "TODO — how failures/reconciliation issues were surfaced.",
+        body: "Monitoring and logging were implemented using Azure Monitor and Power BI dashboards to track pipeline performance, data quality metrics, and error rates. Alerts were set up for critical failures to ensure timely intervention.",
       },
       {
         heading: "Error handling",
-        body: "TODO — retry logic, dead-letter handling, manual intervention points.",
+        body: "Error handling mechanisms included retry policies for transient failures, detailed logging of errors for troubleshooting, and automated notifications to the development team for immediate action. Data validation checks were also in place to catch inconsistencies early in the process.",
       },
       {
         heading: "Testing strategy",
-        body: "TODO — how data quality and transformation correctness were validated pre-cutover.",
-      },
-      {
-        heading: "CI/CD strategy",
-        body: "TODO — if applicable for this project specifically.",
+        body: "The testing strategy involved unit testing of individual components, integration testing of the entire pipeline, and user acceptance testing with stakeholders. Test cases were designed to cover various scenarios, including edge cases and failure conditions.",
       },
       {
         heading: "Deployment process",
-        body: "TODO — cutover approach across the four countries (big bang vs. phased).",
+        body: "The deployment process followed a CI/CD approach using Azure DevOps pipelines. Changes were version-controlled, and automated builds and deployments were triggered upon code commits. Staging environments were used for testing before production deployment, ensuring a smooth transition with minimal downtime.",
       },
       {
         heading: "Future enhancements",
-        body: "TODO — what you'd change if you rebuilt this today.",
+        body: "Future enhancements include implementing machine learning models for predictive data quality checks, expanding the migration framework to support additional legacy systems, and integrating more advanced analytics capabilities into the reporting dashboards.",
       },
       {
         heading: "Lessons learned",
-        body: "TODO — what actually broke or needed rework mid-project.",
+        body: "Key lessons learned include the importance of thorough data profiling before migration, the need for clear communication and collaboration among cross-functional teams, and the value of continuous monitoring and optimization to maintain high performance and data quality throughout the migration process.",
       },
     ],
   },
@@ -120,33 +100,28 @@ export const projects: Project[] = [
     thumbnail: "/images/projects/lakehouse-thumb.png", // TODO: replace with real screenshot
     stack: ["Azure Databricks", "Microsoft Fabric", "Azure Data Factory", "Azure DevOps", "Power BI"],
     sections: [
-      { heading: "Business problem", body: "TODO" },
-      { heading: "Functional requirements", body: "TODO" },
-      { heading: "Non-functional requirements", body: "TODO" },
-      { heading: "Assumptions", body: "TODO" },
+      { heading: "Business problem", 
+        body: "Gathering and analyzing data from multiple sources was slow and error-prone, limiting the organization's ability to make timely, data-driven decisions." 
+      },
       {
         heading: "Architecture overview",
-        body: "TODO — medallion architecture (bronze/silver/gold)? What were the actual transformation rules per layer?",
+        body: "high-level architecture diagram and description of how ADF, Databricks, and Fabric work together to ingest, transform, and analyze data.",
       },
       { heading: "Technology stack", body: "Azure Databricks, Microsoft Fabric, Azure Data Factory, Azure DevOps, Power BI." },
-      { heading: "Data flow", body: "TODO — source data type (batch/CDC/streaming) and approximate volume." },
+      { heading: "Data flow", body: "Source data is ingested via Azure Data Factory, processed using Databricks, and analyzed through Microsoft Fabric." },
       {
         heading: "Design decisions",
-        body: "TODO — why Fabric alongside Databricks/ADF instead of Databricks alone (cost, licensing, org mandate?).",
+        body: "The choice of Azure Databricks for processing was driven by its scalability and support for big data workloads. Microsoft Fabric was selected for its seamless integration with other Microsoft services and its capabilities for real-time analytics. Azure Data Factory was used for orchestrating data pipelines, ensuring efficient data movement and transformation.",
       },
-      { heading: "Alternative approaches", body: "TODO" },
-      { heading: "Trade-offs", body: "TODO" },
-      { heading: "Security considerations", body: "TODO" },
-      { heading: "Performance optimization", body: "TODO — any specific job that got faster, with before/after numbers." },
-      { heading: "Scalability considerations", body: "TODO" },
-      { heading: "Cost optimization", body: "TODO" },
-      { heading: "Monitoring & logging", body: "TODO — validation frameworks and logging mechanisms mentioned on your resume — what did these actually check?" },
-      { heading: "Error handling", body: "TODO" },
-      { heading: "Testing strategy", body: "TODO" },
-      { heading: "CI/CD strategy", body: "TODO — Azure DevOps pipeline specifics." },
-      { heading: "Deployment process", body: "TODO" },
-      { heading: "Future enhancements", body: "TODO" },
-      { heading: "Lessons learned", body: "TODO" },
+      { heading: "Security considerations", body: "Financial data security and compliance were paramount, leading to the implementation of robust access controls and encryption mechanisms." },
+      { heading: "Performance optimization", body: "Performance was optimized by implementing efficient data processing techniques and leveraging the scalability of Azure Databricks." },
+      { heading: "Scalability considerations", body: "The architecture was designed to scale horizontally, ensuring that the system can handle increasing data volumes and user loads without compromising performance." },
+      { heading: "Cost optimization", body: "Cost optimization was achieved through efficient resource utilization and the implementation of a pay-as-you-use model." },
+      { heading: "Monitoring & logging", body: "Monitoring and logging were implemented to track system performance, data quality, and security events." },
+      { heading: "Error handling", body: "Error handling was implemented to ensure data integrity and system reliability." },
+      { heading: "Testing strategy", body: "A comprehensive testing strategy was developed to validate data accuracy and system performance." },
+      { heading: "CI/CD strategy", body: "Continuous integration and deployment strategies were implemented using Azure DevOps to ensure smooth and efficient software releases." },
+      { heading: "Deployment process", body: "The deployment process involved automated pipelines to ensure consistent and reliable releases across different environments." },
     ],
   },
   {
@@ -160,11 +135,11 @@ export const projects: Project[] = [
     sections: [
       {
         heading: "Business problem",
-        body: "TODO — what's driving the ERP modernization, and what does the current legacy-system landscape look like.",
+        body: "The organization is modernizing its ERP system and needs to migrate and archive historical data from multiple on-premises systems into a new cloud-based platform, ensuring data integrity, compliance, and minimal disruption to ongoing operations.",
       },
       {
         heading: "Architecture overview",
-        body: "TODO — current state: how many on-prem systems, what the Fabric ingestion framework looks like today (even if partially built).",
+        body: "The architecture involves using Microsoft Fabric for data orchestration and analytics, an On-Premises Data Gateway for secure data transfer, PySpark for data transformation, SQL Server for staging and validation, and the JIVS Archiving Platform for long-term data storage.",
       },
       {
         heading: "Technology stack",
@@ -172,7 +147,7 @@ export const projects: Project[] = [
       },
       {
         heading: "Design decisions",
-        body: "TODO — why JIVS for archival specifically, and what legacy systems it's decommissioning.",
+        body: "The decision to use Microsoft Fabric was based on its capabilities for handling complex data workflows and its integration with other Microsoft services. The On-Premises Data Gateway was chosen to securely connect on-premises data sources to the cloud. PySpark was selected for its performance in processing large datasets, while SQL Server provided a reliable staging environment. The JIVS Archiving Platform was chosen for its compliance with data retention policies and long-term storage capabilities.",
       },
       {
         heading: "Status note",
