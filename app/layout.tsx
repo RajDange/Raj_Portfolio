@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const jetbrainsMono = JetBrains_Mono({
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Sidebar />
           <main className="flex-1 md:pl-[150px]">{children}</main>
         </div>
+        <Analytics />
       </body>
     </html>
   );
