@@ -1,6 +1,7 @@
 export type ProjectSection = {
   heading: string;
   body: string;
+  code?: string; // optional illustrative code block
 };
 
 export type Project = {
@@ -152,6 +153,60 @@ export const projects: Project[] = [
       {
         heading: "Status note",
         body: "This project is in active development. Outcomes and metrics will be added as the work progresses — this page intentionally does not claim results that don't exist yet.",
+      },
+    ],
+  },
+  {
+    slug: "dqengine-pyspark",
+    title: "DQEngine: metadata-driven data quality",
+    summary:
+      "In-progress: a reusable PySpark class that applies data quality rules by name, with rule definitions loaded from a metadata table.",
+    status: "in-progress",
+    thumbnail: "/images/projects/dqengine-thumb.png",
+    stack: ["PySpark", "Python", "Metadata tables"],
+    sections: [
+      {
+        heading: "Overview",
+        body: "DQEngine applies data quality rules to fields by rule name. The rules themselves live in a metadata table rather than in notebook code, so they can be reviewed and changed without editing pipelines.",
+      },
+      {
+        heading: "How it works",
+        body: "A notebook passes a field and the names of the rules to apply. The engine loads each rule's expression from the metadata table, evaluates it against the field, and returns the result as a single output string.",
+      },
+      {
+        heading: "Rule definition format",
+        body: "Expressions in the metadata table use a {fieldname} placeholder that is substituted with the target column at run time. Length rules are all treated as a maximum length (<=), including the case where either of two lengths is allowed.",
+        code: `(length(col("{fieldname}")) <= N)`,
+      },
+      {
+        heading: "Design decision: multiple rules per field",
+        body: "The engine originally ran one rule per call. The chosen approach is to pass the notebook's rule names as an array, evaluate each rule's expression in a loop, and return one output string with all failure messages concatenated. This keeps the notebook call to one line per field and gives a single readable result per field.",
+      },
+      {
+        heading: "Illustrative sketch",
+        body: "Simplified to show the pattern. This is not the production code.",
+        code: `class DQEngine:
+    def __init__(self, rules_df):
+        # rules_df: metadata table (rule_name, expression, message)
+        self.rules = {r.rule_name: r for r in rules_df.collect()}
+
+    def check(self, df, field, rule_names):
+        failures = []
+        for name in rule_names:
+            rule = self.rules[name]
+            expr = eval(rule.expression.replace("{fieldname}", field))
+            failures.append(
+                F.when(~expr, F.lit(rule.message)).otherwise(F.lit(""))
+            )
+        return df.withColumn(f"{field}_dq", F.concat_ws("; ", *failures))`,
+      },
+      {
+        heading: "Considerations",
+        body: "Because stored expressions are evaluated at run time, write access to the metadata table needs to be controlled.",
+      },
+      {
+        heading: "Status note",
+        body: "This project is in active development. Outcomes and metrics will be added once there is real data; this page intentionally does not claim results that don't exist yet.",
       },
     ],
   },

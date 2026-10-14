@@ -52,6 +52,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
             <p className="text-sm leading-relaxed text-text-secondary">
               {section.body}
             </p>
+            {section.code && (
+              <pre className="mt-3 overflow-x-auto rounded-card border border-border bg-card p-4 font-mono text-[11px] leading-relaxed text-text-secondary">
+                <code>{section.code}</code>
+              </pre>
+            )}
           </div>
         ))}
       </div>

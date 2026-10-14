@@ -1,0 +1,212 @@
+diff --git a/app/projects/[slug]/page.tsx b/app/projects/[slug]/page.tsx
+index a068cd0..e90aedf 100644
+--- a/app/projects/[slug]/page.tsx
++++ b/app/projects/[slug]/page.tsx
+@@ -52,6 +52,11 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
+             <p className="text-sm leading-relaxed text-text-secondary">
+               {section.body}
+             </p>
++            {section.code && (
++              <pre className="mt-3 overflow-x-auto rounded-card border border-border bg-card p-4 font-mono text-[11px] leading-relaxed text-text-secondary">
++                <code>{section.code}</code>
++              </pre>
++            )}
+           </div>
+         ))}
+       </div>
+diff --git a/data/projects.ts b/data/projects.ts
+index 42f5dee..e5c7e1f 100644
+--- a/data/projects.ts
++++ b/data/projects.ts
+@@ -1,6 +1,7 @@
+ export type ProjectSection = {
+   heading: string;
+   body: string;
++  code?: string; // optional illustrative code block
+ };
+ 
+ export type Project = {
+@@ -155,4 +156,58 @@ export const projects: Project[] = [
+       },
+     ],
+   },
++  {
++    slug: "dqengine-pyspark",
++    title: "DQEngine: metadata-driven data quality",
++    summary:
++      "In-progress: a reusable PySpark class that applies data quality rules by name, with rule definitions loaded from a metadata table.",
++    status: "in-progress",
++    thumbnail: "/images/projects/dqengine-thumb.png",
++    stack: ["PySpark", "Python", "Metadata tables"],
++    sections: [
++      {
++        heading: "Overview",
++        body: "DQEngine applies data quality rules to fields by rule name. The rules themselves live in a metadata table rather than in notebook code, so they can be reviewed and changed without editing pipelines.",
++      },
++      {
++        heading: "How it works",
++        body: "A notebook passes a field and the names of the rules to apply. The engine loads each rule's expression from the metadata table, evaluates it against the field, and returns the result as a single output string.",
++      },
++      {
++        heading: "Rule definition format",
++        body: "Expressions in the metadata table use a {fieldname} placeholder that is substituted with the target column at run time. Length rules are all treated as a maximum length (<=), including the case where either of two lengths is allowed.",
++        code: `(length(col("{fieldname}")) <= N)`,
++      },
++      {
++        heading: "Design decision: multiple rules per field",
++        body: "The engine originally ran one rule per call. The chosen approach is to pass the notebook's rule names as an array, evaluate each rule's expression in a loop, and return one output string with all failure messages concatenated. This keeps the notebook call to one line per field and gives a single readable result per field.",
++      },
++      {
++        heading: "Illustrative sketch",
++        body: "Simplified to show the pattern. This is not the production code.",
++        code: `class DQEngine:
++    def __init__(self, rules_df):
++        # rules_df: metadata table (rule_name, expression, message)
++        self.rules = {r.rule_name: r for r in rules_df.collect()}
++
++    def check(self, df, field, rule_names):
++        failures = []
++        for name in rule_names:
++            rule = self.rules[name]
++            expr = eval(rule.expression.replace("{fieldname}", field))
++            failures.append(
++                F.when(~expr, F.lit(rule.message)).otherwise(F.lit(""))
++            )
++        return df.withColumn(f"{field}_dq", F.concat_ws("; ", *failures))`,
++      },
++      {
++        heading: "Considerations",
++        body: "Because stored expressions are evaluated at run time, write access to the metadata table needs to be controlled.",
++      },
++      {
++        heading: "Status note",
++        body: "This project is in active development. Outcomes and metrics will be added once there is real data; this page intentionally does not claim results that don't exist yet.",
++      },
++    ],
++  },
+ ];
+diff --git a/public/images/projects/dqengine-thumb.png b/public/images/projects/dqengine-thumb.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..4a26e9bf44ab1ed563c61b13213628fc1aad84dd
+GIT binary patch
+literal 6936
+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%0D01sZGc1*+Cm<
+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
+
+literal 0
+HcmV?d00001
+
