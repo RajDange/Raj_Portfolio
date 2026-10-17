@@ -2,6 +2,7 @@ export type ProjectSection = {
   heading: string;
   body: string;
   code?: string; // optional illustrative code block
+  visual?: "dq-architecture" | "fabric-architecture"; // optional built-in diagram rendered under the body
 };
 
 export type Project = {
@@ -12,10 +13,67 @@ export type Project = {
   thumbnail: string; // path in /public/images — replace with your real screenshot
   stack: string[];
   metric?: string;
+  hidden?: boolean; // not shown in the projects grid; page stays reachable
+  initiative?: { label: string; slug: string }; // highlighted add-on linking to another project page
+  partOf?: { title: string; slug: string }; // shown on the page as a back-link to the parent project
   sections: ProjectSection[];
 };
 
 export const projects: Project[] = [
+  {
+    slug: "fabric-erp-modernization",
+    title: "Fabric-based ERP modernization",
+    summary:
+      "In-progress: migrating five on-premises source systems (about 4–5 TB each) to Oracle EBS through Microsoft Fabric, with MDM, data modelling and Power BI reconciliation.",
+    status: "in-progress",
+    thumbnail: "/images/projects/fabric-modernization-thumb.png",
+    stack: ["Microsoft Fabric", "On-Premises Data Gateway", "PySpark", "SQL Server", "Power BI", "Oracle EBS", "JIVS"],
+    metric: "5 sources · 4–5 TB each",
+    initiative: { label: "DQEngine", slug: "dqengine-pyspark" },
+    sections: [
+      {
+        heading: "Business problem",
+        body: "The organization is modernizing its ERP landscape. Data from five on-premises source systems, each holding roughly 4–5 TB, has to be migrated into Oracle EBS, and the legacy systems retired with their history archived for compliance, without disrupting ongoing operations.",
+      },
+      {
+        heading: "Architecture overview",
+        body: "Source systems are reached through On-Premises Data Gateways and staging databases, and data is processed in Microsoft Fabric using notebooks. Cleansed and validated data is loaded into Oracle EBS, while Power BI reconciliation dashboards compare source and target. Historical data is archived with the JIVS Archiving Platform.",
+        visual: "fabric-architecture",
+      },
+      {
+        heading: "Connectivity, network and infrastructure",
+        body: "A large part of the work is connecting the sources to Fabric. The sources include on-premises Linux-based applications and SQL Server, which are integrated through VMs, staging databases and On-Premises Data Gateways. This involves network and infrastructure setup on the source side, and OCI networking for the connection to the EBS target.",
+      },
+      {
+        heading: "Processing in Fabric",
+        body: "Fabric Notebooks in Python, PySpark and SQL handle data mapping, cleansing, validation, reconciliation and business-rule implementation, across the volume of five multi-terabyte sources.",
+      },
+      {
+        heading: "MDM and data modelling",
+        body: "Models are being built for master data management, alongside data modelling for the migrated data, so that master records are consistent across the five sources before they reach the target.",
+      },
+      {
+        heading: "Reconciliation",
+        body: "Power BI reconciliation dashboards give the business a view of source versus target, so migration completeness and correctness can be checked and signed off by the people who own the data.",
+      },
+      {
+        heading: "Loading into EBS",
+        body: "Data is loaded into Oracle EBS, where it has to satisfy the target's validation rules. Connectivity to EBS runs through OCI networking.",
+      },
+      {
+        heading: "Monitoring",
+        body: "Pipeline execution and platform health are tracked with Fabric Eventhouse and Fabric Metrics.",
+      },
+      {
+        heading: "Archival and decommissioning",
+        body: "The JIVS Archiving Platform keeps legacy data available for regulatory compliance and supports decommissioning the old systems.",
+      },
+      {
+        heading: "Status note",
+        body: "This project is in active development. Outcomes and metrics will be added as the work progresses — this page intentionally does not claim results that don't exist yet.",
+      },
+    ],
+  },
   {
     slug: "erp-data-migration",
     title: "Multi-country ERP data migration",
@@ -126,48 +184,24 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "fabric-erp-modernization",
-    title: "Fabric-based ERP modernization",
-    summary:
-      "In-progress: enterprise data migration and archival framework as part of a large-scale ERP modernization program.",
-    status: "in-progress",
-    thumbnail: "/images/projects/fabric-modernization-thumb.png", // TODO: replace with real screenshot
-    stack: ["Microsoft Fabric", "On-Premises Data Gateway", "PySpark", "SQL Server", "JIVS"],
-    sections: [
-      {
-        heading: "Business problem",
-        body: "The organization is modernizing its ERP system and needs to migrate and archive historical data from multiple on-premises systems into a new cloud-based platform, ensuring data integrity, compliance, and minimal disruption to ongoing operations.",
-      },
-      {
-        heading: "Architecture overview",
-        body: "The architecture involves using Microsoft Fabric for data orchestration and analytics, an On-Premises Data Gateway for secure data transfer, PySpark for data transformation, SQL Server for staging and validation, and the JIVS Archiving Platform for long-term data storage.",
-      },
-      {
-        heading: "Technology stack",
-        body: "Microsoft Fabric, On-Premises Data Gateway, PySpark, SQL Server, JIVS Archiving Platform.",
-      },
-      {
-        heading: "Design decisions",
-        body: "The decision to use Microsoft Fabric was based on its capabilities for handling complex data workflows and its integration with other Microsoft services. The On-Premises Data Gateway was chosen to securely connect on-premises data sources to the cloud. PySpark was selected for its performance in processing large datasets, while SQL Server provided a reliable staging environment. The JIVS Archiving Platform was chosen for its compliance with data retention policies and long-term storage capabilities.",
-      },
-      {
-        heading: "Status note",
-        body: "This project is in active development. Outcomes and metrics will be added as the work progresses — this page intentionally does not claim results that don't exist yet.",
-      },
-    ],
-  },
-  {
     slug: "dqengine-pyspark",
     title: "DQEngine: metadata-driven data quality",
     summary:
       "In-progress: a reusable PySpark class that applies data quality rules by name, with rule definitions loaded from a metadata table.",
     status: "in-progress",
+    hidden: true,
+    partOf: { title: "Fabric-based ERP modernization", slug: "fabric-erp-modernization" },
     thumbnail: "/images/projects/dqengine-thumb.png",
     stack: ["PySpark", "Python", "Metadata tables"],
     sections: [
       {
         heading: "Overview",
         body: "DQEngine applies data quality rules to fields by rule name. The rules themselves live in a metadata table rather than in notebook code, so they can be reviewed and changed without editing pipelines.",
+      },
+      {
+        heading: "Centralized rule repository",
+        body: "Data quality rules are kept in one central repository (a metadata table) instead of being copied into each notebook. The functional team can review, correct and adjust rules in that one place, without needing to read or edit pipeline code. Every pipeline that calls DQEngine reads the same definitions, so a rule is defined once, behaves the same everywhere, and has a single place to audit.",
+        visual: "dq-architecture",
       },
       {
         heading: "How it works",

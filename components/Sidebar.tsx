@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   TbLayoutGrid,
@@ -22,6 +22,25 @@ const navItems = [
 
 export default function Sidebar() {
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+
+  // highlight the nav item for the section currently in view
+  useEffect(() => {
+    const sections = navItems
+      .map((item) => document.querySelector(item.href))
+      .filter((el): el is Element => el !== null);
+    if (sections.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: "-35% 0px -55% 0px" }
+    );
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -60,17 +79,28 @@ export default function Sidebar() {
         <Link href="/" className="flex h-9 w-9 items-center justify-center rounded-full bg-[#123A5E] font-mono text-xs text-accent-blue">
           RD
         </Link>
-        <nav className="flex flex-col gap-5">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-2 font-mono text-[11px] text-text-secondary transition-colors hover:text-accent-blue"
-            >
-              <item.icon size={15} aria-hidden />
-              {item.label}
-            </a>
-          ))}
+        <nav className="flex flex-col gap-2.5">
+          {navItems.map((item) => {
+            const isActive = active === item.href;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`group flex items-center gap-2 rounded-lg border px-2.5 py-2 font-mono text-[11px] transition-all duration-200 hover:translate-x-1 hover:border-accent-blue hover:bg-accent-blue/10 hover:text-accent-blue hover:shadow-[0_0_14px_rgba(95,180,240,0.25)] ${
+                  isActive
+                    ? "border-accent-blue bg-accent-blue/10 text-accent-blue shadow-[0_0_14px_rgba(95,180,240,0.25)]"
+                    : "border-border bg-card/60 text-text-secondary"
+                }`}
+              >
+                <item.icon
+                  size={15}
+                  aria-hidden
+                  className="transition-transform duration-200 group-hover:scale-125"
+                />
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
       </aside>
     </>

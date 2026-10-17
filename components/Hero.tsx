@@ -24,13 +24,13 @@ export default function Hero() {
           <a
             href="/RAJ_NETAJI_DANGE_Resume.pdf"
             target="_blank"
-            className="rounded-md bg-accent-blue px-4 py-2 text-xs font-medium text-bg"
+            className="btn-glass rounded-md border border-accent-blue bg-accent-blue/90 px-4 py-2 text-xs font-medium text-bg"
           >
             Resume
           </a>
           <a
             href="#projects"
-            className="rounded-md border border-border px-4 py-2 text-xs text-text-secondary hover:border-borderStrong"
+            className="btn-glass rounded-md border border-border bg-white/[0.03] px-4 py-2 text-xs text-text-secondary hover:text-text-primary"
             
           >
             View projects
@@ -40,7 +40,7 @@ export default function Hero() {
             href="https://github.com/RajDange"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-border px-4 py-2 text-xs text-text-secondary hover:border-borderStrong"
+            className="btn-glass rounded-md border border-border bg-white/[0.03] px-4 py-2 text-xs text-text-secondary hover:text-text-primary"
           >
             GitHub
           </a>
@@ -48,7 +48,7 @@ export default function Hero() {
             href="https://linkedin.com/in/raj-dange"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-border px-4 py-2 text-xs text-text-secondary hover:border-borderStrong"
+            className="btn-glass rounded-md border border-border bg-white/[0.03] px-4 py-2 text-xs text-text-secondary hover:text-text-primary"
           >
             LinkedIn
           </a>
@@ -57,19 +57,12 @@ export default function Hero() {
 
       <div className="relative h-40 w-40 flex-shrink-0 sm:h-48 sm:w-48">
         <div className="relative h-full w-full overflow-hidden rounded-2xl border border-border bg-card">
-          {
-            /*TODO: place your photo at /public/images/profile.jpg
-            and swap the placeholder div below for:*/
-            <Image src="/images/Raj_Profile picture.jpg" alt="Raj Dange" fill className="object-cover" />
-          }
-          <div className="flex h-full w-full items-center justify-center font-mono text-xs text-text-muted">
-            your photo
-          </div>
+          <Image src="/images/Raj_Profile picture.jpg" alt="Raj Dange" fill className="object-cover" />
         </div>
         <div className="absolute -bottom-2 -right-2 flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-accent-green" />
           <span className="font-mono text-[10px] text-text-secondary">
-            Banglore, India
+            Bangalore, India
           </span>
         </div>
       </div>

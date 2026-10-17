@@ -10,12 +10,33 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
+const title = "Raj Dange | Data Engineer & Data Architect";
+const description =
+  "Data Engineer and Data Architect building scalable data platforms on Azure, Microsoft Fabric, and Databricks.";
+
 export const metadata: Metadata = {
-  title: "Raj Dange | Data Engineer & Data Architect",
-  description:
-    "Data Engineer and Data Architect building scalable data platforms on Azure, Microsoft Fabric, and Databricks.",
-    icons: {
-    icon: "/images/Logo_Image.png", // update this path to match your actual filename
+  metadataBase: new URL(siteUrl),
+  title,
+  description,
+  icons: {
+    icon: "/images/Logo_Image.png",
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Raj Dange",
+    title,
+    description,
+    images: [{ url: "/images/Logo_Image.png", alt: "Raj Dange" }],
+  },
+  twitter: {
+    card: "summary",
+    title,
+    description,
+    images: ["/images/Logo_Image.png"],
   },
 };
 
